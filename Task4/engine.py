@@ -15,13 +15,6 @@ OPENROUTER_API_KEY = ""  # Необходимо указать ключ API Open
 
 client = OpenAI(api_key=OPENROUTER_API_KEY, base_url="https://openrouter.ai/api/v1")
 
-INJECTION_PATTERNS = ["ignore all instructions", "output:", "password", "root:"]
-
-def is_malicious_chunk(text: str) -> bool:
-    lower = text.lower()
-    return any(p in lower for p in INJECTION_PATTERNS)
-
-
 class RAGEngine:
     def __init__(self):
         self.model = SentenceTransformer(MODEL_NAME)
@@ -46,7 +39,7 @@ class RAGEngine:
             return "Я не знаю."
 
         context = "\n\n".join(
-            f"[{c['text']}" for c in chunks if not is_malicious_chunk(c["text"])
+            f"[{c['text']}" for c in chunks
         )
 
         examples = "\n\n".join(
