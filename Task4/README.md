@@ -13,7 +13,7 @@ pip install -r requirements.txt
 ```
 cd Task4
 ```
-4. В файле engine.py установить переменную OPENROUTER_API_KEY (ключ API OpenRouter)
+4. В файле engine.py установить переменную `OPENROUTER_API_KEY` (ключ API OpenRouter)
 5. Запустить бота
 ```
 python bot.py
@@ -22,8 +22,9 @@ python bot.py
 ## Примеры диалогов
 
 ![Успешный диалог 1](./results/success1.png)
+---
 ![Успешный диалог 2](./results/success2.png)
+---
 ![Успешный диалог 3](./results/success3.png)
-
-
+---
 ![Не успешный диалог](./results/fail.png)
