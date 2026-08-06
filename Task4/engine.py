@@ -13,6 +13,12 @@ LIMIT = 5
 
 OPENROUTER_API_KEY = ""  # Необходимо указать ключ API OpenRouter
 
+MALICIOUS_PATTERNS = ["ignore all instructions", "password", "root"]
+
+def should_filter_chunk(text: str) -> bool:
+    lower = text.lower()
+    return any(p in lower for p in MALICIOUS_PATTERNS)
+
 client = OpenAI(api_key=OPENROUTER_API_KEY, base_url="https://openrouter.ai/api/v1")
 
 class RAGEngine:
@@ -39,7 +45,7 @@ class RAGEngine:
             return "Я не знаю."
 
         context = "\n\n".join(
-            f"[{c['text']}" for c in chunks
+            f"[{c['text']}" for c in chunks if not should_filter_chunk(c["text"])
         )
 
         examples = "\n\n".join(
