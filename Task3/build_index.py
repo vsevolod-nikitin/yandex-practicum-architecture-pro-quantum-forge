@@ -15,7 +15,6 @@ INDEX_PATH = OUTPUT_DIR / "faiss.index"
 META_PATH = OUTPUT_DIR / "metadata.json"
 
 MODEL_NAME = "BAAI/bge-m3"
-EMBEDDING_DIM = 1024
 
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=CHUNK_SIZE,
@@ -50,7 +49,6 @@ def chunk_document(file_path: Path, text: str):
         )
     return result
 
-
 def main():
     total_chunks = []
 
@@ -69,10 +67,6 @@ def main():
     finish_gen = datetime.now()
 
     embedding_dim = embeddings.shape[1]
-    if embedding_dim != EMBEDDING_DIM:
-        print(
-            f"Warning: EMBEDDING_DIM={EMBEDDING_DIM} does not match actual model output dimension {embedding_dim}."
-        )
 
     index = faiss.IndexFlatIP(embedding_dim)
     index.add(embeddings)
